@@ -1,9 +1,7 @@
 # MVZAssigner
 ## About The Project
 ..
-#### Server
-![Linux-Windows][Linux-Windows]
-#### Clients
+### Clients
 ![Windows][Windows]
 ### Built With
 ![Dotnet][Dotnet]
