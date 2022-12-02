@@ -39,9 +39,9 @@ namespace zuordnung_test
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.name = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialSingleLineTextField3 = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.htPassUnix = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.maid = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.materialSingleLineTextField2 = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.htPassSmb = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.button5 = new System.Windows.Forms.Button();
@@ -53,6 +53,20 @@ namespace zuordnung_test
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // materialLabel7
+            // 
+            materialLabel7.AutoSize = true;
+            materialLabel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(5)))), ((int)(((byte)(22)))), ((int)(((byte)(21)))));
+            materialLabel7.Depth = 0;
+            materialLabel7.Font = new System.Drawing.Font("Roboto", 11F);
+            materialLabel7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            materialLabel7.Location = new System.Drawing.Point(6, 83);
+            materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel7.Name = "materialLabel7";
+            materialLabel7.Size = new System.Drawing.Size(144, 19);
+            materialLabel7.TabIndex = 25;
+            materialLabel7.Text = "Unix .htpasswd Pfad";
             // 
             // btnAssign
             // 
@@ -69,6 +83,7 @@ namespace zuordnung_test
             this.btnAssign.TabIndex = 36;
             this.btnAssign.Text = "Zuordnen";
             this.btnAssign.UseVisualStyleBackColor = false;
+            this.btnAssign.Click += new System.EventHandler(this.btnAssign_Click);
             // 
             // groupBox2
             // 
@@ -108,7 +123,7 @@ namespace zuordnung_test
             this.txtDest.SelectionStart = 0;
             this.txtDest.Size = new System.Drawing.Size(191, 23);
             this.txtDest.TabIndex = 8;
-            this.txtDest.Text = "Ziel";
+            this.txtDest.Text = "Quelle";
             this.txtDest.UseSystemPasswordChar = false;
             // 
             // groupBox1
@@ -116,9 +131,9 @@ namespace zuordnung_test
             this.groupBox1.Controls.Add(this.name);
             this.groupBox1.Controls.Add(this.materialLabel1);
             this.groupBox1.Controls.Add(materialLabel7);
-            this.groupBox1.Controls.Add(this.materialSingleLineTextField3);
+            this.groupBox1.Controls.Add(this.htPassUnix);
             this.groupBox1.Controls.Add(this.maid);
-            this.groupBox1.Controls.Add(this.materialSingleLineTextField2);
+            this.groupBox1.Controls.Add(this.htPassSmb);
             this.groupBox1.Controls.Add(this.materialLabel6);
             this.groupBox1.Controls.Add(this.materialLabel3);
             this.groupBox1.Controls.Add(this.button5);
@@ -160,36 +175,22 @@ namespace zuordnung_test
             this.materialLabel1.TabIndex = 15;
             this.materialLabel1.Text = "Nach, Vorname";
             // 
-            // materialLabel7
+            // htPassUnix
             // 
-            materialLabel7.AutoSize = true;
-            materialLabel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(5)))), ((int)(((byte)(22)))), ((int)(((byte)(21)))));
-            materialLabel7.Depth = 0;
-            materialLabel7.Font = new System.Drawing.Font("Roboto", 11F);
-            materialLabel7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            materialLabel7.Location = new System.Drawing.Point(6, 83);
-            materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel7.Name = "materialLabel7";
-            materialLabel7.Size = new System.Drawing.Size(144, 19);
-            materialLabel7.TabIndex = 25;
-            materialLabel7.Text = "Unix .htpasswd Pfad";
-            // 
-            // materialSingleLineTextField3
-            // 
-            this.materialSingleLineTextField3.BackColor = System.Drawing.Color.White;
-            this.materialSingleLineTextField3.Depth = 0;
-            this.materialSingleLineTextField3.Hint = "";
-            this.materialSingleLineTextField3.Location = new System.Drawing.Point(10, 105);
-            this.materialSingleLineTextField3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialSingleLineTextField3.Name = "materialSingleLineTextField3";
-            this.materialSingleLineTextField3.PasswordChar = '\0';
-            this.materialSingleLineTextField3.SelectedText = "";
-            this.materialSingleLineTextField3.SelectionLength = 0;
-            this.materialSingleLineTextField3.SelectionStart = 0;
-            this.materialSingleLineTextField3.Size = new System.Drawing.Size(221, 23);
-            this.materialSingleLineTextField3.TabIndex = 26;
-            this.materialSingleLineTextField3.Text = "/var/intranet/.htpasswd";
-            this.materialSingleLineTextField3.UseSystemPasswordChar = false;
+            this.htPassUnix.BackColor = System.Drawing.Color.White;
+            this.htPassUnix.Depth = 0;
+            this.htPassUnix.Hint = "";
+            this.htPassUnix.Location = new System.Drawing.Point(10, 105);
+            this.htPassUnix.MouseState = MaterialSkin.MouseState.HOVER;
+            this.htPassUnix.Name = "htPassUnix";
+            this.htPassUnix.PasswordChar = '\0';
+            this.htPassUnix.SelectedText = "";
+            this.htPassUnix.SelectionLength = 0;
+            this.htPassUnix.SelectionStart = 0;
+            this.htPassUnix.Size = new System.Drawing.Size(221, 23);
+            this.htPassUnix.TabIndex = 26;
+            this.htPassUnix.Text = "/var/intranet/.htpasswd";
+            this.htPassUnix.UseSystemPasswordChar = false;
             // 
             // maid
             // 
@@ -207,22 +208,22 @@ namespace zuordnung_test
             this.maid.TabIndex = 12;
             this.maid.UseSystemPasswordChar = false;
             // 
-            // materialSingleLineTextField2
+            // htPassSmb
             // 
-            this.materialSingleLineTextField2.BackColor = System.Drawing.Color.White;
-            this.materialSingleLineTextField2.Depth = 0;
-            this.materialSingleLineTextField2.Hint = "";
-            this.materialSingleLineTextField2.Location = new System.Drawing.Point(46, 48);
-            this.materialSingleLineTextField2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialSingleLineTextField2.Name = "materialSingleLineTextField2";
-            this.materialSingleLineTextField2.PasswordChar = '\0';
-            this.materialSingleLineTextField2.SelectedText = "";
-            this.materialSingleLineTextField2.SelectionLength = 0;
-            this.materialSingleLineTextField2.SelectionStart = 0;
-            this.materialSingleLineTextField2.Size = new System.Drawing.Size(191, 23);
-            this.materialSingleLineTextField2.TabIndex = 24;
-            this.materialSingleLineTextField2.Text = "\\\\192.168.50.11\\intranet\\.htpasswd\"";
-            this.materialSingleLineTextField2.UseSystemPasswordChar = false;
+            this.htPassSmb.BackColor = System.Drawing.Color.White;
+            this.htPassSmb.Depth = 0;
+            this.htPassSmb.Hint = "";
+            this.htPassSmb.Location = new System.Drawing.Point(46, 48);
+            this.htPassSmb.MouseState = MaterialSkin.MouseState.HOVER;
+            this.htPassSmb.Name = "htPassSmb";
+            this.htPassSmb.PasswordChar = '\0';
+            this.htPassSmb.SelectedText = "";
+            this.htPassSmb.SelectionLength = 0;
+            this.htPassSmb.SelectionStart = 0;
+            this.htPassSmb.Size = new System.Drawing.Size(191, 23);
+            this.htPassSmb.TabIndex = 24;
+            this.htPassSmb.Text = "\\\\192.168.50.11\\intranet\\.htpasswd\"";
+            this.htPassSmb.UseSystemPasswordChar = false;
             // 
             // materialLabel6
             // 
@@ -280,6 +281,7 @@ namespace zuordnung_test
             this.btnGen.TabIndex = 30;
             this.btnGen.Text = "Generieren";
             this.btnGen.UseVisualStyleBackColor = false;
+            this.btnGen.Click += new System.EventHandler(this.btnGen_Click);
             // 
             // materialLabel5
             // 
@@ -291,9 +293,9 @@ namespace zuordnung_test
             this.materialLabel5.Location = new System.Drawing.Point(12, 74);
             this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel5.Name = "materialLabel5";
-            this.materialLabel5.Size = new System.Drawing.Size(131, 19);
+            this.materialLabel5.Size = new System.Drawing.Size(157, 19);
             this.materialLabel5.TabIndex = 32;
-            this.materialLabel5.Text = "Root Pfad / Quelle";
+            this.materialLabel5.Text = "Mitarbeiterverzeichnis";
             // 
             // button4
             // 
@@ -328,7 +330,7 @@ namespace zuordnung_test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 506);
+            this.ClientSize = new System.Drawing.Size(281, 506);
             this.Controls.Add(this.btnAssign);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -358,9 +360,9 @@ namespace zuordnung_test
         private System.Windows.Forms.GroupBox groupBox1;
         private MaterialSkin.Controls.MaterialSingleLineTextField name;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField3;
+        private MaterialSkin.Controls.MaterialSingleLineTextField htPassUnix;
         private MaterialSkin.Controls.MaterialSingleLineTextField maid;
-        private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField2;
+        private MaterialSkin.Controls.MaterialSingleLineTextField htPassSmb;
         private MaterialSkin.Controls.MaterialLabel materialLabel6;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
         private System.Windows.Forms.Button button5;

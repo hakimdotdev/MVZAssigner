@@ -9,6 +9,7 @@ using System.Management.Automation;
 using System.Reflection;
 using System.Windows.Forms;
 
+
 namespace zuordnung_test
 {
     public partial class MVZAssigner : MaterialForm
@@ -41,47 +42,58 @@ namespace zuordnung_test
         private void ClearData()
         {
             txtRootPath.Text = null;
-            materialSingleLineTextField2.Text = null;
-            materialSingleLineTextField3.Text = null;
+            htPassSmb.Text = null;
+            htPassUnix.Text = null;
 
         }
         //
         //Generieren
         //
-        private void MaterialFlatButton1_Click(object sender, EventArgs e)
+        public void CreateEmp(string Name, string Pass, string Id, string MaVz, string HtPassSmb, string HtPassUnix)
         {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new ArgumentException($"\"{nameof(Name)}\" kann nicht NULL oder leer sein.", nameof(Name));
+            }
+
+            if (string.IsNullOrEmpty(Pass))
+            {
+                throw new ArgumentException($"\"{nameof(Pass)}\" kann nicht NULL oder leer sein.", nameof(Pass));
+            }
+
+            if (string.IsNullOrEmpty(Id))
+            {
+                throw new ArgumentException($"\"{nameof(Id)}\" kann nicht NULL oder leer sein.", nameof(Id));
+            }
+
+            if (string.IsNullOrEmpty(HtPassSmb))
+            {
+                throw new ArgumentException($"\"{nameof(HtPassSmb)}\" kann nicht NULL oder leer sein.", nameof(HtPassSmb));
+            }
+
+            if (string.IsNullOrEmpty(HtPassUnix))
+            {
+                throw new ArgumentException($"\"{nameof(HtPassUnix)}\" kann nicht NULL oder leer sein.", nameof(HtPassUnix));
+            }
+
             try
             {
-                //Stammdaten
-                string NachVorname = name.Text;
-                string benutzername = name.Text.Substring(0, 4);
-                string Passwort = RandomString(5);
-                // Ma_id für Namenskonvention formatieren
-                string MAidPadded = Convert.ToDecimal(maid.Text).ToString("0000#");
-                //
-                //Pfade
-                //
-                string PfadMAOrdner = txtRootPath.Text;
-                string Pfadhtpasswdshare = materialSingleLineTextField2.Text;
-                //Unix / Ultimativer .htpasswd Pfad
-                string datahtpasswdpfad = materialSingleLineTextField3.Text;
-                // Pfad für das Verzeichnis mit Konvention
-                string genmadirpfad = $@"{PfadMAOrdner}\{NachVorname}_{MAidPadded}";
-                //Daten ausgeben
-                if (MessageBox.Show($"Benutzername: {benutzername.ToLower()}Passwort: {Passwort}", "Benutzerdaten") == DialogResult.OK)
+                string User = name.Text.Substring(0, 4); // Benutzername aus Vollem Namen
+                string genmadirpfad = $@"{MaVz}\{Name}_{Id}";                 // Pfad für das Verzeichnis mit Konvention
+                if (MessageBox.Show($"Benutzername: {User.ToLower()}Passwort: {Pass}", "Benutzerdaten") == DialogResult.OK)
                 {
                     ClearData();
                 }
                 //Erstellen des Verzeichnis
                 Directory.CreateDirectory(genmadirpfad);
                 // Verschlüsseln des Passworts
-                string cryptedPassword = Crypter.MD5.Crypt(Passwort, new CrypterOptions()
+                string cryptedPassword = Crypter.MD5.Crypt(Pass, new CrypterOptions()
                 {
-                {CrypterOption.Variant, MD5CrypterVariant.Apache}
+                    {CrypterOption.Variant, MD5CrypterVariant.Apache}
                 });
                 // Schreiben der .htaccess
-                File.AppendAllText(Pfadhtpasswdshare, benutzername.ToLower() + ":" + cryptedPassword + Environment.NewLine);
-                string Outputhtaccess = $"AuthType Basic\r\nAuthName \"Passwortgeschützter Bereich\"\r\nAuthUserFile {datahtpasswdpfad}\r\nRequire user {benutzername.ToLower()}";
+                File.AppendAllText(HtPassSmb, User.ToLower() + ":" + cryptedPassword + Environment.NewLine);
+                string Outputhtaccess = $"AuthType Basic\r\nAuthName \"Passwortgeschützter Bereich\"\r\nAuthUserFile {HtPassUnix}\r\nRequire user {User.ToLower()}";
                 // .htaccess Pfad zum Erstellen je Verzeichnis
                 string genhtaccesspfad = genmadirpfad + @"\.htaccess";
                 File.AppendAllText(genhtaccesspfad, Outputhtaccess);
@@ -90,15 +102,27 @@ namespace zuordnung_test
             {
                 Console.WriteLine(ex);
             }
-
-
+        }
+        ///
+        // Generieren
+        //
+        private void btnGen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CreateEmp(name.Text, RandomString(5), maid.Text, txtRootPath.Text, htPassSmb.Text, htPassUnix.Text);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
         }
 
         //
         //Zuordnen
         //
-        private void Button1_Click_1(object sender, EventArgs e)
+        private void btnAssign_Click(object sender, EventArgs e)
         {
             //Skript aus Resourcen
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -137,5 +161,8 @@ namespace zuordnung_test
         {
 
         }
+
+     
+
     }
 }
