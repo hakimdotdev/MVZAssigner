@@ -84,6 +84,7 @@
     <Compile Include="MVZAssigner.Designer.cs">
       <DependentUpon>MVZAssigner.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PowerShellHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MVZAssigner.resx">

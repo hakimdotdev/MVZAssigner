@@ -63,7 +63,7 @@ namespace zuordnung_test
 
             if (string.IsNullOrEmpty(Id))
             {
-                throw new ArgumentException($"\"{nameof(Id)}\" kann nicht NULL oder leer sein.", nameof(Id));
+               // Id = Guid.NewGuid();
             }
 
             if (string.IsNullOrEmpty(HtPassSmb))
@@ -79,7 +79,7 @@ namespace zuordnung_test
             try
             {
                 string User = name.Text.Substring(0, 4); // Benutzername aus Vollem Namen
-                string genmadirpfad = $@"{MaVz}\{Name}_{Id}";                 // Pfad für das Verzeichnis mit Konvention
+                string genmadirpfad = $@"{MaVz}\{Name}_{Id}"; // Pfad für das Verzeichnis mit Konvention
                 if (MessageBox.Show($"Benutzername: {User.ToLower()}Passwort: {Pass}", "Benutzerdaten") == DialogResult.OK)
                 {
                     ClearData();
@@ -91,8 +91,7 @@ namespace zuordnung_test
                 {
                     {CrypterOption.Variant, MD5CrypterVariant.Apache}
                 });
-                // Schreiben der .htaccess
-                File.AppendAllText(HtPassSmb, User.ToLower() + ":" + cryptedPassword + Environment.NewLine);
+                File.AppendAllText(HtPassSmb, User.ToLower() + ":" + cryptedPassword + Environment.NewLine); // Schreiben der .htaccess
                 string Outputhtaccess = $"AuthType Basic\r\nAuthName \"Passwortgeschützter Bereich\"\r\nAuthUserFile {HtPassUnix}\r\nRequire user {User.ToLower()}";
                 // .htaccess Pfad zum Erstellen je Verzeichnis
                 string genhtaccesspfad = genmadirpfad + @"\.htaccess";
