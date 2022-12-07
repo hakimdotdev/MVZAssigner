@@ -109,6 +109,7 @@ namespace zuordnung_test
             this.button6.Size = new System.Drawing.Size(30, 23);
             this.button6.TabIndex = 7;
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // txtDest
             // 
@@ -309,10 +310,12 @@ namespace zuordnung_test
             this.button4.Size = new System.Drawing.Size(30, 23);
             this.button4.TabIndex = 31;
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // txtRootPath
             // 
             this.txtRootPath.BackColor = System.Drawing.Color.White;
+            this.txtRootPath.Cursor = System.Windows.Forms.Cursors.No;
             this.txtRootPath.Depth = 0;
             this.txtRootPath.Hint = "";
             this.txtRootPath.Location = new System.Drawing.Point(52, 96);

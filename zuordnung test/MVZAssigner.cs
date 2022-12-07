@@ -140,7 +140,7 @@ namespace zuordnung_test
             }
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -148,20 +148,13 @@ namespace zuordnung_test
 
             }
         }
-        private void Button3_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog2.ShowDialog() == DialogResult.OK)
             {
                 txtDest.Text = folderBrowserDialog2.SelectedPath;
             }
         }
-
-        private void name_Click(object sender, EventArgs e)
-        {
-
-        }
-
-     
 
     }
 }
