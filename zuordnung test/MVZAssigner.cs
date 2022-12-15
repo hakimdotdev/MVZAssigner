@@ -123,21 +123,25 @@ namespace zuordnung_test
         //
         private void btnAssign_Click(object sender, EventArgs e)
         {
-            //Skript aus Resourcen
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = "zuordnung_test.Resources.zuordnung.ps1";
-            //Ausführen des PS-Skript
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
+            string source = folderBrowserDialog1.SelectedPath;
+            string destination = folderBrowserDialog2.SelectedPath;
+            var items = Directory.GetFiles(source);
+            foreach (var item in items)
             {
-                string skriptpfad = reader.ReadToEnd();
-                PowerShell ps = PowerShell.Create();
-                //string skriptpfad = $@"C:\zuordnung.ps1";
-                ps.AddScript(skriptpfad);
-                ps.AddParameter("Source", folderBrowserDialog1.SelectedPath);
-                ps.AddParameter("Destination", folderBrowserDialog2.SelectedPath);
-                ps.Invoke();
+                string tail = item.Split('_').Last();
+                string filter = "*_" + tail;
+                var destDir = Directory.GetDirectories(destination, filter, SearchOption.TopDirectoryOnly).FirstOrDefault();
+                if (destDir != null)
+                {
+                    File.Copy(item, Path.Combine(destDir, Path.GetFileName(item)), true);
+                }
+                else
+                {
+                    Console.WriteLine("No Directory was found that matched the Filter {0} in Directory {1}", filter, destination);
+                }
             }
+            
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
