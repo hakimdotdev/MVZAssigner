@@ -63,7 +63,7 @@ namespace zuordnung_test
 
             if (string.IsNullOrEmpty(Id))
             {
-               // Id = Guid.NewGuid();
+                // Id = Guid.NewGuid();
             }
 
             if (string.IsNullOrEmpty(HtPassSmb))
@@ -140,8 +140,8 @@ namespace zuordnung_test
                     Console.WriteLine("No Directory was found that matched the Filter {0} in Directory {1}", filter, destination);
                 }
             }
-            
-            
+
+
         }
 
         private void button4_Click(object sender, EventArgs e)
